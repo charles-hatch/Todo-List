@@ -3,16 +3,19 @@ import "./styles.css";
 
 // src/index.js
 import { createMemo } from "./memo.js";
-import { getMemos, storeMemo } from "./storage.js";
+import { getMemos, storeMemo, deleteMemoById } from "./storage.js";
 import "./dom.js";
 import { updateDisplay } from "./dom.js";
 
 // create
-const memo1 = createMemo("Buy milk");
+const memo1 = createMemo("Buy milk", "Description");
 storeMemo(memo1);
 
-const memo2 = createMemo("Study JS");
+const memo2 = createMemo("Study JS", "Description");
 storeMemo(memo2);
+
+const memo3 = createMemo("Memo 3", "Description 3");
+storeMemo(memo3);
 //basic flow
 
 console.log(getMemos());
