@@ -1,5 +1,4 @@
-// greeting.js
-export const greeting = "Hello, Odinite!";
+//memo.js
 
 let memoID = 0;
 
@@ -8,15 +7,14 @@ export function createMemo(title) {
     id: memoID++,
     title,
     completed: false,
-    toggle() {
+    toggleCompleted() {
       this.completed = !this.completed;
     },
+    setTitle(value) {
+      [this.title] = value.split(" ");
+    }, //rename function
   };
-}
-
-export function deleteMemo(title) {
-  return {};
-}
+} //factory function to create our memo object
 
 // Our Basic Function to Create a To Do.
 // Charlie, in the same style as our Directions game, we have functions and processes for everything.

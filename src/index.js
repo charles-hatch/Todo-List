@@ -2,24 +2,27 @@
 import "./styles.css";
 
 // src/index.js
-import odinImage from "./img/odin.png";
 import { createMemo } from "./memo.js";
-
-const image = document.createElement("img");
-image.src = odinImage;
-
-document.body.appendChild(image);
-
-//temp memory storage for meos
-const memos = [];
+import { getMemos, storeMemo } from "./storage.js";
 
 // create
 const memo1 = createMemo("Buy milk");
+storeMemo(memo1);
+
 const memo2 = createMemo("Study JS");
-memos.push(memo1, memo2);
-console.log(memos);
+storeMemo(memo2);
+//basic flow
 
-// toggle
+console.log(getMemos());
+//return our storage
 
-memo1.toggle();
+// import odinImage from "./img/odin.png";
+// const image = document.createElement("img");
+// image.src = odinImage;
+// document.body.appendChild(image);
+
+// TOGGLE AND TITLE SET TEST CODE
+memo1.toggleCompleted();
 console.log(memo1.completed); // true
+memo1.setTitle("Test");
+console.log(memo1);
