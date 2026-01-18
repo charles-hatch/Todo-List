@@ -2,3 +2,12 @@
 body {
   background-color: rgb(213, 171, 255);
 }
+
+#container {
+  background-color: white;
+}
+
+.memo-card {
+  border: 1px solid black;
+  margin: 10px;
+}

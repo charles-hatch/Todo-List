@@ -5,6 +5,7 @@ import "./styles.css";
 import { createMemo } from "./memo.js";
 import { getMemos, storeMemo } from "./storage.js";
 import "./dom.js";
+import { updateDisplay } from "./dom.js";
 
 // create
 const memo1 = createMemo("Buy milk");
@@ -17,16 +18,14 @@ storeMemo(memo2);
 console.log(getMemos());
 //return our storage
 
-// import odinImage from "./img/odin.png";
-// const image = document.createElement("img");
-// image.src = odinImage;
-// document.body.appendChild(image);
-
-// TOGGLE AND TITLE SET TEST CODE
 memo1.toggleCompleted();
 console.log(memo1.completed); // true
 memo1.setTitle("Test");
 console.log(memo1);
+// TOGGLE AND TITLE SET TEST CODE
+
+const memoState = getMemos();
+updateDisplay(memoState);
 
 //pipeline
 // Build minimal DOM rendering (list memos, toggle, delete)
@@ -44,3 +43,8 @@ console.log(memo1);
 // Add basic styling and UX improvements
 
 // Final review and small refactors
+
+// import odinImage from "./img/odin.png";
+// const image = document.createElement("img");
+// image.src = odinImage;
+// document.body.appendChild(image);
