@@ -7,6 +7,8 @@ const memos = [];
 
 const lists = [];
 
+let currentList = null;
+
 //LISTS
 export function storeList(list) {
   lists.push(list);
@@ -16,9 +18,17 @@ export function getLists() {
   return lists;
 }
 
+export function setCurrentList(list) {
+  currentList = list;
+}
+export function getCurrentList(list) {
+  return currentList;
+}
+
 //MEMOS
 export function storeMemo(memo) {
   memos.push(memo);
+  currentList.memos.push(memo); // correct
 }
 
 export function getMemos() {

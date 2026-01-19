@@ -9,15 +9,17 @@ import {
   deleteMemoById,
   storeList,
   getLists,
+  setCurrentList,
+  getCurrentList,
 } from "./storage.js";
 import { updateDisplay } from "./dom.js";
 import { addList } from "./lists.js";
 
-let currentList;
+// let currentList;
 const defaultList = addList("Default");
 storeList(defaultList);
 setCurrentList(defaultList);
-currentList = defaultList;
+// currentList = getCurrentList();
 //expand into function?
 
 const secondList = addList("List 2!");
@@ -49,6 +51,10 @@ const memoState = getMemos(); //return current array
 const listState = getLists();
 updateDisplay(memoState, listState);
 console.log(memoState);
+
+console.log("Current list memos:", getCurrentList().memos);
+console.log("Default list memos:", defaultList.memos);
+console.log("List 2 list memos:", secondList.memos);
 
 const newMemoBtn = document.getElementById("new-memo-btn");
 newMemoBtn.addEventListener("click", () => {
