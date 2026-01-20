@@ -1,5 +1,5 @@
 //dom.js
-import { deleteMemoById } from "./storage.js";
+import { deleteMemoById, setCurrentList } from "./storage.js";
 
 const memoContainer = document.getElementById("memo-container");
 const listContainer = document.getElementById("list-container");
@@ -13,11 +13,10 @@ export function updateDisplay(memos, lists) {
     listBtn.textContent = listData.title;
     listBtn.addEventListener("click", () => {
       console.log("List " + listBtn.title + " was clicked.");
+      setCurrentList(listData, listData.title);
     });
     listBtn.classList.add("list-btns");
     listContainer.append(listBtn);
-
-    console.log("List");
   });
 
   memos.forEach((memoData) => {

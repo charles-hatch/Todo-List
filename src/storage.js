@@ -18,8 +18,9 @@ export function getLists() {
   return lists;
 }
 
-export function setCurrentList(list) {
+export function setCurrentList(list, listTitle) {
   currentList = list;
+  console.log("The Current List was changed to " + listTitle);
 }
 export function getCurrentList(list) {
   return currentList;

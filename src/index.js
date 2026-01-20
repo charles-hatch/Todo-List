@@ -18,7 +18,7 @@ import { addList } from "./lists.js";
 // let currentList;
 const defaultList = addList("Default");
 storeList(defaultList);
-setCurrentList(defaultList);
+setCurrentList(defaultList, defaultList.title);
 // currentList = getCurrentList();
 //expand into function?
 
@@ -53,6 +53,7 @@ updateDisplay(memoState, listState);
 console.log(memoState);
 
 console.log("Current list memos:", getCurrentList().memos);
+console.log("Current list: ", getCurrentList().title);
 console.log("Default list memos:", defaultList.memos);
 console.log("List 2 list memos:", secondList.memos);
 
@@ -65,6 +66,9 @@ newMemoBtn.addEventListener("click", () => {
   storeMemo(memo);
   updateDisplay(memoState, listState);
   console.log("Current memos = " + memoState);
+  console.log("Current list: ", getCurrentList().title);
+  console.log("Default list memos:", defaultList.memos);
+  console.log("List 2 list memos:", secondList.memos);
 });
 
 const newListBtn = document.getElementById("new-list-btn");
