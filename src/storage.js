@@ -33,7 +33,6 @@ export function getCurrentList() {
 
 //MEMOS
 export function getMemos() {
-  console.log("The Current Selected List is " + currentList.title);
   return currentList.memos;
 }
 
@@ -41,5 +40,26 @@ export function deleteMemoById(id) {
   const index = currentList.memos.findIndex((m) => m.id === id);
   if (index !== -1) currentList.memos.splice(index, 1);
   console.log("Memo deleted");
+  updateDisplay();
+}
+
+export function deleteCurrentList() {
+  if (!currentList) return;
+
+  // never delete Default
+  if (currentList.title === "Default") {
+    alert("You can't delete your default list.");
+    return;
+  }
+
+  const index = lists.findIndex((list) => list.id === currentList.id);
+  if (index === -1) return;
+
+  lists.splice(index, 1);
+
+  // jump back to Default
+  const defaultList = lists.find((list) => list.title === "Default") || null;
+  currentList = defaultList;
+
   updateDisplay();
 }

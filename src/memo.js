@@ -2,11 +2,12 @@
 
 let memoID = 0;
 
-export function createMemo(title, description) {
+export function createMemo(title, description, dueDate) {
   return {
     id: memoID++,
     title,
     description,
+    dueDate,
     completed: false,
     toggleCompleted() {
       this.completed = !this.completed;

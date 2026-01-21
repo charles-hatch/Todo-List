@@ -1,4 +1,6 @@
 //dom.js
+import { format, parseISO, isValid } from "date-fns";
+
 import {
   deleteMemoById,
   setCurrentList,
@@ -24,7 +26,7 @@ export function updateDisplay() {
     const listBtn = document.createElement("button");
     listBtn.textContent = listData.title;
     listBtn.addEventListener("click", () => {
-      console.log("List " + listBtn.title + " was clicked.");
+      console.log("Changing selected list...");
       setCurrentList(listData);
     });
     listBtn.classList.add("list-btns");
@@ -51,6 +53,21 @@ export function updateDisplay() {
 
     const memoDescription = document.createElement("p");
     memoDescription.textContent = memoData.description;
+
+    // 👇 Due Date code
+    let dueText = "No due date";
+
+    if (memoData.dueDate) {
+      const parsed = parseISO(memoData.dueDate);
+      if (isValid(parsed)) {
+        dueText = format(parsed, "MMM d, yyyy");
+      }
+    }
+
+    const dueDateEl = document.createElement("small");
+    dueDateEl.textContent = `Due: ${dueText}`;
+    dueDateEl.classList.add("memo-due-date");
+    // 👆Due date code
 
     const footer = document.createElement("div");
     footer.classList.add("memo-footer");

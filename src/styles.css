@@ -36,6 +36,7 @@ body {
 
 #main {
   grid-row: 2;
+  padding: 20px;
 }
 
 select {
