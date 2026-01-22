@@ -28,6 +28,10 @@ export function updateDisplay() {
     const listRow = document.createElement("div");
     listRow.classList.add("list-row");
 
+    if (listData === currentList) {
+      listRow.classList.add("list-active");
+    }
+
     const titleSpan = document.createElement("span");
     titleSpan.textContent = listData.title;
 

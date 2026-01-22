@@ -251,3 +251,16 @@ select {
 #new-memo-btn:active {
   transform: scale(0.95);
 }
+.list-active {
+  background-color: #ffffff;
+  border-color: #2563eb;
+  border-left-width: 4px;
+}
+
+.list-active:hover {
+  background-color: #f8fafc;
+}
+
+.list-active span {
+  font-weight: 600;
+}

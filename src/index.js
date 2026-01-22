@@ -12,15 +12,14 @@ setCurrentList(defaultList);
 
 // #### TESTING CODE #### //
 const TEST_DUE_DATE = "2026-02-01T00:00:00.000Z";
-
 const memo1 = createMemo(
   "Memo Example",
   "Description goes here",
   TEST_DUE_DATE,
 );
-storeMemo(memo1);
-const secondList = addList("List 2!");
-storeList(secondList);
+// storeMemo(memo1);
+// const secondList = addList("List 2!");
+// storeList(secondList);
 // #### TESTING CODE #### //
 
 //BUTTONS
@@ -52,6 +51,9 @@ newListBtn.addEventListener("click", () => {
 // UPDATE THE INPUT FORM FOR MEMOS, then add due date. Functionality is already there. Just need to be posted to DOM.
 // due date?
 //priority dropdown
+//if the list is empty, could we make a message like
+//"your list is empty, add it from below!"
+// we could have a ?? button to get help or info
 // edit button for memos, to pull up an input box for creation
 //https://github.com/date-fns/date-fns
 //local storage
