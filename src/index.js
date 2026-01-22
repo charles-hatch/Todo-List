@@ -46,14 +46,6 @@ newListBtn.addEventListener("click", () => {
   storeList(newList);
 });
 
-const deleteListBtn = document.getElementById("delete-list-btn");
-deleteListBtn.addEventListener("click", () => {
-  const ok = window.confirm("Delete this list and all contained memos?");
-  if (!ok) return;
-
-  deleteCurrentList();
-});
-
 //TO DO LIST
 // UPDATE THE INPUT FORM FOR MEMOS, then add due date. Functionality is already there. Just need to be posted to DOM.
 // due date?

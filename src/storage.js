@@ -63,3 +63,28 @@ export function deleteCurrentList() {
 
   updateDisplay();
 }
+
+export function renameList(list, newTitle) {
+  if (!list) return;
+  if (!newTitle.trim()) return;
+
+  list.title = newTitle;
+  updateDisplay();
+}
+
+export function deleteList(list) {
+  if (!list) return;
+
+  if (list.title === "Default") {
+    alert("You can't delete the Default list.");
+    return;
+  }
+
+  const index = lists.findIndex((l) => l.id === list.id);
+  if (index === -1) return;
+
+  lists.splice(index, 1);
+
+  currentList = lists.find((l) => l.title === "Default") || null;
+  updateDisplay();
+}

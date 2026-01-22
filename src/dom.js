@@ -6,6 +6,8 @@ import {
   setCurrentList,
   getCurrentList,
   getLists,
+  renameList,
+  deleteList,
 } from "./storage.js";
 
 const memoContainer = document.getElementById("memo-container");
@@ -23,14 +25,64 @@ export function updateDisplay() {
   listNameContainer.textContent = currentList.title;
 
   lists.forEach((listData) => {
-    const listBtn = document.createElement("button");
-    listBtn.textContent = listData.title;
-    listBtn.addEventListener("click", () => {
-      console.log("Changing selected list...");
+    const listRow = document.createElement("div");
+    listRow.classList.add("list-row");
+
+    const titleSpan = document.createElement("span");
+    titleSpan.textContent = listData.title;
+
+    const settingsBtn = document.createElement("button");
+    settingsBtn.classList.add("list-settings-btn");
+    settingsBtn.textContent = "⚙";
+
+    const dropdown = document.createElement("div");
+    dropdown.classList.add("list-dropdown");
+    dropdown.hidden = true;
+
+    const renameBtn = document.createElement("button");
+    renameBtn.textContent = "Rename List";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete List";
+
+    renameBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.hidden = true;
+
+      const newTitle = prompt("Rename list:", listData.title);
+      if (!newTitle) return;
+
+      renameList(listData, newTitle);
+    });
+
+    deleteBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.hidden = true;
+
+      const ok = confirm("Delete this list and all contained memos?");
+      if (!ok) return;
+
+      deleteList(listData);
+    });
+
+    dropdown.append(renameBtn, deleteBtn);
+
+    listRow.addEventListener("click", () => {
       setCurrentList(listData);
     });
-    listBtn.classList.add("list-btns");
-    listContainer.append(listBtn);
+
+    settingsBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      document
+        .querySelectorAll(".list-dropdown")
+        .forEach((d) => (d.hidden = true));
+
+      dropdown.hidden = !dropdown.hidden;
+    });
+
+    listRow.append(titleSpan, settingsBtn, dropdown);
+    listContainer.append(listRow);
   });
 
   currentList.memos.forEach((memoData) => {
