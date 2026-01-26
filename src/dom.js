@@ -8,6 +8,8 @@ import {
   getLists,
   renameList,
   deleteList,
+  saveToStorage,
+  toggleMemoCompleted,
 } from "./storage.js";
 
 const memoContainer = document.getElementById("memo-container");
@@ -15,14 +17,11 @@ const listContainer = document.getElementById("list-container");
 // const listNameContainer = document.getElementById("list-name-container");
 
 export function updateDisplay() {
-  const currentList = getCurrentList();
-  if (!currentList) return;
   const lists = getLists();
+  const currentList = getCurrentList();
 
   memoContainer.innerHTML = "";
   listContainer.innerHTML = "";
-
-  // listNameContainer.textContent = currentList.title;
 
   lists.forEach((listData) => {
     const listRow = document.createElement("div");
@@ -94,6 +93,8 @@ export function updateDisplay() {
     listContainer.append(listRow);
   });
 
+  if (!currentList) return;
+
   currentList.memos.forEach((memoData) => {
     const memoCard = document.createElement("div");
     memoCard.classList.add("memo-card");
@@ -150,7 +151,7 @@ export function updateDisplay() {
           memoData.title = title.trim();
           memoData.description = description;
           memoData.dueDate = dueDate;
-
+          saveToStorage();
           updateDisplay();
         },
       });
@@ -163,7 +164,7 @@ export function updateDisplay() {
     checkbox.type = "checkbox";
     checkbox.checked = memoData.completed;
     checkbox.addEventListener("change", () => {
-      memoData.toggleCompleted();
+      toggleMemoCompleted(memoData.id);
     });
 
     label.append(checkbox);

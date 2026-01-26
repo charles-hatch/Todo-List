@@ -18,16 +18,6 @@ if (getLists().length === 0) {
   storeList(defaultList);
   setCurrentList(defaultList);
 }
-//sets our default list for page setup
-
-// // #### TESTING CODE #### //
-// const TEST_DUE_DATE = "2026-02-01T00:00:00.000Z";
-// const memo1 = createMemo(
-//   "Memo Example",
-//   "Description goes here",
-//   TEST_DUE_DATE,
-// );
-// storeMemo(memo1);
 
 //BUTTONS
 const newMemoBtn = document.getElementById("new-memo-btn");
@@ -38,10 +28,11 @@ newMemoBtn.addEventListener("click", () => {
     textareaPlaceholder: "Enter your Description...",
     showTextarea: true,
     showDate: true,
-    onSubmit: ({ title, description }) => {
-      if (!title) return;
+    onSubmit: ({ title, description, dueDate }) => {
+      if (!title?.trim()) return;
 
-      const memo = createMemo(title, description, null);
+      const memo = createMemo(title.trim(), description, dueDate || null);
+
       storeMemo(memo);
     },
   });

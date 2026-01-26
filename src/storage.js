@@ -1,13 +1,14 @@
 //storage.js
 
 import { updateDisplay } from "./dom";
+import { addList } from "./lists";
 
 const lists = [];
 let currentList = null;
 
 const STORAGE_KEY = "memo-app-data";
 
-function saveToStorage() {
+export function saveToStorage() {
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify({
@@ -19,17 +20,22 @@ function saveToStorage() {
 
 export function loadFromStorage() {
   const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return;
 
-  const data = JSON.parse(raw);
+  if (raw) {
+    const data = JSON.parse(raw);
+    lists.length = 0;
+    lists.push(...data.lists);
+    currentList = lists.find((l) => l.id === data.currentListId) || null;
+  }
 
-  lists.length = 0;
-  lists.push(...data.lists);
+  if (!lists.some((l) => l.isDefault)) {
+    const defaultList = addList("Default");
+    defaultList.isDefault = true;
+    lists.unshift(defaultList);
+    currentList = defaultList;
+  }
 
-  currentList =
-    lists.find((l) => l.id === data.currentListId) ||
-    lists.find((l) => l.title === "Default") ||
-    null;
+  saveToStorage();
   updateDisplay();
 }
 
@@ -72,28 +78,6 @@ export function deleteMemoById(id) {
   updateDisplay();
 }
 
-export function deleteCurrentList() {
-  if (!currentList) return;
-
-  // never delete Default
-  if (currentList.title === "Default") {
-    alert("You can't delete your default list.");
-    return;
-  }
-
-  const index = lists.findIndex((list) => list.id === currentList.id);
-  if (index === -1) return;
-
-  lists.splice(index, 1);
-
-  // jump back to Default
-  const defaultList = lists.find((list) => list.title === "Default") || null;
-  currentList = defaultList;
-
-  saveToStorage();
-  updateDisplay();
-}
-
 export function renameList(list, newTitle) {
   if (!list) return;
   if (!newTitle.trim()) return;
@@ -104,21 +88,36 @@ export function renameList(list, newTitle) {
 }
 
 export function deleteList(list) {
-  if (!list) return;
-
-  if (list.title === "Default") {
-    alert("You can't delete the Default list.");
+  if (list.isDefault) {
+    alert("The Default list cannot be deleted.");
     return;
   }
 
   const index = lists.findIndex((l) => l.id === list.id);
   if (index === -1) return;
 
+  const wasCurrent = currentList?.id === list.id;
+
   lists.splice(index, 1);
 
-  currentList = lists.find((l) => l.title === "Default") || null;
+  if (wasCurrent) {
+    currentList =
+      lists.find((l) => l.isDefault) ||
+      lists[index - 1] ||
+      lists[index] ||
+      null;
+  }
+
   saveToStorage();
   updateDisplay();
 }
 
 //current list deletion... is it redundant?
+export function toggleMemoCompleted(id) {
+  const memo = currentList.memos.find((m) => m.id === id);
+  if (!memo) return;
+
+  memo.completed = !memo.completed;
+  saveToStorage();
+  updateDisplay();
+}
