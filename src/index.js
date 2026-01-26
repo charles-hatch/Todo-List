@@ -53,18 +53,18 @@ newListBtn.addEventListener("click", () => {
   });
 });
 
-//local storage
-//LOCAL storage works but descriptions and some things arent saving well,
-// methods inside lists.js etc. dont get saved so its broken
-
-//. You’re storing methods in localStorage (they are lost)
-
-// These do not survive JSON.stringify:
-
-// toggleCompleted()
-// setTitle()
-
-// After reload, those functions are gone.
 //fix design
 //clean and fix AI and spacing
 //code check -- comments, AI spicing up, removing any redundant code
+
+//shadow on memo highlight
+// make it look "clean"
+//"calm code down
+// we relied on ai for styling and reworking the final parts too much
+// //make sure we undertand the code and rework it to look
+// more simple in places so i can talk about it
+
+//style buttons
+//style form
+// fix modal spacing
+//unify fonts

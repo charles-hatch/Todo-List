@@ -53,6 +53,7 @@ export function storeList(list) {
 }
 
 export function storeMemo(memo) {
+  if (!currentList) return;
   currentList.memos.push(memo);
   saveToStorage();
   updateDisplay();
