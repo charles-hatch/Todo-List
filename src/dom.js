@@ -56,7 +56,10 @@ export function updateDisplay() {
       openModal({
         title: "Rename List",
         value: listData.title,
-        onSubmit: (value) => renameList(listData, value),
+        onSubmit: ({ title }) => {
+          if (!title?.trim()) return;
+          renameList(listData, title.trim());
+        },
       });
     });
 
@@ -134,7 +137,23 @@ export function updateDisplay() {
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
     editBtn.addEventListener("click", () => {
-      alert();
+      openModal({
+        title: "Edit Memo",
+        value: memoData.title,
+        textareaValue: memoData.description,
+        showTextarea: true,
+        showDate: true,
+        dateValue: memoData.dueDate ?? "",
+        onSubmit: ({ title, description, dueDate }) => {
+          if (!title?.trim()) return;
+
+          memoData.title = title.trim();
+          memoData.description = description;
+          memoData.dueDate = dueDate;
+
+          updateDisplay();
+        },
+      });
     });
 
     const label = document.createElement("label");

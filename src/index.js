@@ -42,23 +42,17 @@ newListBtn.addEventListener("click", () => {
   openModal({
     title: "New List",
     placeholder: "List name",
-    onSubmit: (value) => {
-      if (!value.trim()) return;
-      const list = addList(value.trim());
+    onSubmit: ({ title }) => {
+      if (!title?.trim()) return;
+
+      const list = addList(title.trim());
       storeList(list);
       setCurrentList(list);
     },
   });
 });
 
-//TO DO LIST
-//memo EDITING button!!!
-//if the list is empty, could we make a message like
-//"your list is empty, add it from below!"
-// we could have a ?? button to get help or info
-// edit button for memos, to pull up an input box for creation
 //local storage
-//Create a better "FORM" for inputting new memos/lists
+//fix design
 //clean and fix AI and spacing
-//code check
-//comments and GPT r
+//code check -- comments, AI spicing up, removing any redundant code
