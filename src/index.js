@@ -53,22 +53,12 @@ newListBtn.addEventListener("click", () => {
   });
 });
 
-//fix design
-//clean and fix AI and spacing
-//code check -- comments, AI spicing up, removing any redundant code
-
-//shadow on memo highlight
-// make it look "clean"
-//"calm code down
-// we relied on ai for styling and reworking the final parts too much
-// //make sure we undertand the code and rework it to look
-// more simple in places so i can talk about it
-
-//style buttons
-//style form
-// fix modal spacing
-//unify fonts
-
-//LIST POPOUT? CONFIGURE?
-// SQUISHING AND RESIZING! DONT DESTROY
-// unselected lists arent visible at all
+//FINAL TO DO LIST
+// reduction, does everything, all the modules, etc. make sense where they are? are there strange imports?
+// is it a well designed project?
+// ADD COMMENTS (IN JP?)
+// REMOVE / REDUCE complexity
+// review styling and make sure it all looks good for portfolio
+// i want to understand the code and make sure i understand it
+// is my font sizing ok?
+// is it uniform? are we using proper resizability?
