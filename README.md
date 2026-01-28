@@ -1,6 +1,7 @@
 # Memo Pad App
 
 シンプルなメモ管理アプリです。JavaScriptの学習用として作成しました。リストごとにメモを管理でき、データはブラウザのローカルストレージに保存されます。
+![My Memo Pad screenshot](img/screenshot.png)
 
 ---
 
@@ -70,3 +71,5 @@ src/
 JavaScriptの基礎を練習するために作成した個人制作です。
 
 未経験エンジニアとして、コードを整理して書くことと、内容を説明できることを意識しています。
+
+## Screenshot
