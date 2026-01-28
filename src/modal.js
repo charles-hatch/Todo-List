@@ -1,14 +1,18 @@
-//modal.js
+// modal.js
+// Reusable modal component with configurable inputs and callbacks
 
 const overlay = document.getElementById("modal-overlay");
 const titleEl = document.getElementById("modal-title");
 const inputEl = document.getElementById("modal-input");
-const cancelBtn = document.getElementById("modal-cancel");
-const confirmBtn = document.getElementById("modal-confirm");
 const textareaEl = document.getElementById("modal-textarea");
 const dateEl = document.getElementById("modal-date");
+const cancelBtn = document.getElementById("modal-cancel");
+const confirmBtn = document.getElementById("modal-confirm");
+
 cancelBtn.classList.add("btn", "btn-ghost");
 confirmBtn.classList.add("btn", "btn-primary");
+
+// Stores the current submit handler
 let onConfirm = null;
 
 export function openModal({
@@ -28,6 +32,7 @@ export function openModal({
 
   inputEl.hidden = !showInput;
   textareaEl.hidden = !showTextarea;
+  dateEl.hidden = !showDate;
 
   if (showInput) {
     inputEl.placeholder = placeholder;
@@ -41,13 +46,7 @@ export function openModal({
     textareaEl.value = "";
   }
 
-  dateEl.hidden = !showDate;
-
-  if (showDate) {
-    dateEl.value = dateValue;
-  } else {
-    dateEl.value = "";
-  }
+  dateEl.value = showDate ? dateValue : "";
 
   overlay.hidden = false;
   (showInput ? inputEl : textareaEl)?.focus();
@@ -73,14 +72,10 @@ confirmBtn.addEventListener("click", () => {
   closeModal();
 });
 
+// Keyboard accessibility
 overlay.addEventListener("keydown", (e) => {
   if (overlay.hidden) return;
 
-  if (e.key === "Escape") {
-    closeModal();
-  }
-
-  if (e.key === "Enter") {
-    confirmBtn.click();
-  }
+  if (e.key === "Escape") closeModal();
+  if (e.key === "Enter") confirmBtn.click();
 });

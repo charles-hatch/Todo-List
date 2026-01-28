@@ -1,4 +1,6 @@
 // index.js
+// App entry point: initializes state and wires main UI actions
+
 import "./styles.css";
 import { createMemo } from "./memo.js";
 import { addList } from "./lists.js";
@@ -13,13 +15,7 @@ import {
 
 loadFromStorage();
 
-if (getLists().length === 0) {
-  const defaultList = addList("Default");
-  storeList(defaultList);
-  setCurrentList(defaultList);
-}
-
-//BUTTONS
+// New Memo Button
 const newMemoBtn = document.getElementById("new-memo-btn");
 newMemoBtn.addEventListener("click", () => {
   openModal({
@@ -38,6 +34,7 @@ newMemoBtn.addEventListener("click", () => {
   });
 });
 
+// New List Button
 const newListBtn = document.getElementById("new-list-btn");
 newListBtn.addEventListener("click", () => {
   openModal({
@@ -52,13 +49,3 @@ newListBtn.addEventListener("click", () => {
     },
   });
 });
-
-//FINAL TO DO LIST
-// reduction, does everything, all the modules, etc. make sense where they are? are there strange imports?
-// is it a well designed project?
-// ADD COMMENTS (IN JP?)
-// REMOVE / REDUCE complexity
-// review styling and make sure it all looks good for portfolio
-// i want to understand the code and make sure i understand it
-// is my font sizing ok?
-// is it uniform? are we using proper resizability?

@@ -1,4 +1,6 @@
-//dom.js
+// dom.js
+// Responsible for rendering lists and memos and wiring DOM events
+
 import { format, parseISO, isValid } from "date-fns";
 import { openModal } from "./modal.js";
 import {
@@ -14,14 +16,19 @@ import {
 
 const memoContainer = document.getElementById("memo-container");
 const listContainer = document.getElementById("list-container");
-// const listNameContainer = document.getElementById("list-name-container");
 
+// Render lists and memo cards from current state
 export function updateDisplay() {
   const lists = getLists();
   const currentList = getCurrentList();
 
+  // Clear existing DOM
   memoContainer.innerHTML = "";
   listContainer.innerHTML = "";
+
+  // =====================
+  // Sidebar Lists
+  // =====================
 
   lists.forEach((listData) => {
     const listRow = document.createElement("div");
@@ -42,12 +49,9 @@ export function updateDisplay() {
     dropdown.classList.add("list-dropdown");
     dropdown.hidden = true;
 
+    // Rename list btn
     const renameBtn = document.createElement("button");
     renameBtn.textContent = "Rename List";
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete List";
-
     renameBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       dropdown.hidden = true;
@@ -62,6 +66,9 @@ export function updateDisplay() {
       });
     });
 
+    // Delete list btn
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete List";
     deleteBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       dropdown.hidden = true;
@@ -75,13 +82,14 @@ export function updateDisplay() {
 
     dropdown.append(renameBtn, deleteBtn);
 
+    // Select list
     listRow.addEventListener("click", () => {
       setCurrentList(listData);
     });
 
+    // Settings Toggle dropdown
     settingsBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-
       document
         .querySelectorAll(".list-dropdown")
         .forEach((d) => (d.hidden = true));
@@ -95,10 +103,15 @@ export function updateDisplay() {
 
   if (!currentList) return;
 
+  // =====================
+  // Memo Cards
+  // =====================
+
   currentList.memos.forEach((memoData) => {
     const memoCard = document.createElement("div");
     memoCard.classList.add("memo-card");
 
+    // Header
     const header = document.createElement("div");
     header.classList.add("memo-header");
 
@@ -107,19 +120,19 @@ export function updateDisplay() {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "X";
+    deleteBtn.classList.add("delete-btn");
     deleteBtn.addEventListener("click", () => {
       deleteMemoById(memoData.id);
     });
-    deleteBtn.classList.add("delete-btn");
 
     header.append(memoTitle, deleteBtn);
 
+    // Description
     const memoDescription = document.createElement("p");
     memoDescription.textContent = memoData.description;
 
-    // 👇 Due Date code
+    // Due date
     let dueText = "No due date";
-
     if (memoData.dueDate) {
       const parsed = parseISO(memoData.dueDate);
       if (isValid(parsed)) {
@@ -130,8 +143,8 @@ export function updateDisplay() {
     const dueDateEl = document.createElement("small");
     dueDateEl.textContent = `Due: ${dueText}`;
     dueDateEl.classList.add("memo-due-date");
-    // 👆Due date code
 
+    // Footer
     const footer = document.createElement("div");
     footer.classList.add("memo-footer");
 
@@ -172,7 +185,6 @@ export function updateDisplay() {
     footer.append(editBtn, label);
 
     memoCard.append(header, memoDescription, dueDateEl, footer);
-
     memoContainer.append(memoCard);
   });
 }
